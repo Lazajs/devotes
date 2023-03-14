@@ -3,3 +3,7 @@ export interface User {
   id: string,
   email: string
 }
+
+export interface DatabaseUser extends User {
+  passwordHash: string
+}

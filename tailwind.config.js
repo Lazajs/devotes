@@ -27,7 +27,8 @@ module.exports = {
       },
       padding: {
         small: '8px',
-        medium: '16px'
+        medium: '16px',
+        big: '40px'
       },
       fontSize: {
         title: '10rem',
