@@ -1,15 +1,10 @@
-import MainLayout from "@/components/MainLayout";
-import InputField from "@/components/Form/InputField";
-import { useRef } from "react";
-import SendButton from "@/components/Form/SendButton";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-
-type InputFieldTypes = 'password' | 'email' | 'name' | 'form'
-interface InputFieldError {
-  from: InputFieldTypes,
-  msg: string
-}
+import MainLayout from "@/components/MainLayout";
+import Form from "@/components/Form";
+import InputField from "@/components/Form/InputField";
+import SendButton from "@/components/Form/SendButton";
+import type { InputFieldError } from "@/types";
 
 export default function Register () {
   const [inputError, setInputError] = useState<InputFieldError | null>()
@@ -36,7 +31,7 @@ export default function Register () {
         headers: {
           'Content-Type': 'application/json'
         },
-        //Shouldn't be 'null', regexp tested before
+        //Shouldn't be 'null', regex tested before
         body: JSON.stringify({
           name: name.current.value,
           email: email.current!.value,
@@ -45,14 +40,19 @@ export default function Register () {
       })
 
       if (request.ok) router.push('/')
-      else setInputError({from: 'form', msg: 'This user is already exists or its credentials are not valid.'})
+      else {
+        const {status} = request
+        let msg = 'Some credential is missing or not valid' //status code 400
+        if (status === 409) msg = 'User already exists, please log in or try another information'
+        setInputError({from: 'form', msg})
+      }
     }
 
   }
 
   return (
     <MainLayout>
-      <form onSubmit={handleSubmit} className="flex flex-col relative pt-big m-auto w-[90%] max-w-[500px] mt-bigger gap-small">
+      <Form handleAction={handleSubmit}>
         <InputField type="text" error={inputError?.from === 'name'} reference={name} holder='Name'/>
         {inputError?.from === 'name' ? <p className="text-negativae text-center text-text" >{inputError.msg}</p> : ''}
         <InputField type="text" error={inputError?.from === 'email'} reference={email} holder='Email'/>
@@ -61,7 +61,7 @@ export default function Register () {
         {inputError?.from === 'password' ? <p className="text-negativae text-center text-text">{inputError.msg}</p> : ''}
         <SendButton text={'Sign Up'} />
         {inputError?.from === 'form' ? <p className="text-negativae z-30 text-center text-text">{inputError.msg}</p> : ''}
-      </form>
+    </Form>
     </MainLayout>
   )
 }

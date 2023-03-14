@@ -14,7 +14,7 @@ export default withIronSessionApiRoute(
       console.log(name,email, password)
       const isUserExistent = await User.find({email, name})
       
-      if (Array.isArray(isUserExistent) && isUserExistent.length !== 0) res.status(400).end()
+      if (Array.isArray(isUserExistent) && isUserExistent.length !== 0) res.status(409).end()
       else {
         const hash = bcrypt.hashSync(password as string, 10)
         const newUser = new User({name, email, passwordHash: hash})
@@ -24,6 +24,6 @@ export default withIronSessionApiRoute(
         await req.session.save()
         res.status(201).end()
       }
-    }  
+    } else res.status(405).end()
   }, config
 )
