@@ -1,11 +1,8 @@
 import { Icons } from "@/components/Icons"
-import { useRouter } from "next/router"
 
 const {Github, Linkedin} = Icons
 
 export default function Providers () {
-  const router = useRouter()
-
   return (
     <span>
       <a href="/api/auth/provider/linkedin">
