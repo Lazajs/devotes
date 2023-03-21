@@ -5,6 +5,7 @@ import InputField from "@/components/Form/InputField"
 import SendButton from "@/components/Form/SendButton"
 import { useRef, useState } from "react"
 import type { InputFieldError } from "@/types"
+import Providers from "@/components/Form/Providers"
 
 export default function Login () {
   const email = useRef<HTMLInputElement>(null)
@@ -50,6 +51,7 @@ export default function Login () {
   return (
     <MainLayout>
       <Form handleAction={handleSubmit}>
+        <Providers />
         <InputField type="text" reference={email} holder="Email" error={inputError?.from === 'email'}/>
         {inputError?.from === 'email' ? <p className="text-negativae text-center text-text">{inputError.msg}</p> : ''}
         <InputField type='password' reference={password} holder="Password" error={inputError?.from === 'password'}/>

@@ -5,6 +5,7 @@ import Form from "@/components/Form";
 import InputField from "@/components/Form/InputField";
 import SendButton from "@/components/Form/SendButton";
 import type { InputFieldError } from "@/types";
+import Providers from "@/components/Form/Providers"
 
 export default function Register () {
   const [inputError, setInputError] = useState<InputFieldError | null>()
@@ -53,6 +54,7 @@ export default function Register () {
   return (
     <MainLayout>
       <Form handleAction={handleSubmit}>
+        <Providers />
         <InputField type="text" error={inputError?.from === 'name'} reference={name} holder='Name'/>
         {inputError?.from === 'name' ? <p className="text-negativae text-center text-text" >{inputError.msg}</p> : ''}
         <InputField type="text" error={inputError?.from === 'email'} reference={email} holder='Email'/>
