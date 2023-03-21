@@ -7,9 +7,9 @@ import { User } from "@/types";
 
 async function handler (req: NextApiRequest, res: NextApiResponse) {
   await dbConnect()
-  let error = 'Error while trying to sing in with linkedin'
+  let error = 'Error while trying to sign in with Github.'
   await new Promise<void>(resolve => (
-      passport.authenticate('linkedin', async (err: any, user: User) => {
+      passport.authenticate('github', async (err: any, user: User) => {
         if (err || !user) {
           error = err
           resolve()

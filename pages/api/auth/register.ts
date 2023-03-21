@@ -11,7 +11,6 @@ export default withIronSessionApiRoute(
       const {name, email, password} = req.body
       
       if (!name || !email || !password) res.status(400).end()
-      console.log(name,email, password)
       const isUserExistent = await User.find({email, name})
       
       if (Array.isArray(isUserExistent) && isUserExistent.length !== 0) res.status(409).end()

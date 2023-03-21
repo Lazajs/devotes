@@ -6,6 +6,7 @@ export interface User {
 
 export interface DatabaseUser extends User {
   passwordHash: string
+  provider: 'linkedin' | 'github' | 'credentials'
 }
 
 type InputFieldTypes = 'password' | 'email' | 'name' | 'form'

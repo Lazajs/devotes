@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@types/passport": "^1.0.12",
+    "@types/passport-github2": "^1.2.5",
     "@types/passport-linkedin-oauth2": "^1.5.3",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.21",

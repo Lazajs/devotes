@@ -1,9 +1,9 @@
-import { useRouter } from "next/navigation"
+import { useRouter } from "next/router"
 import MainLayout from "@/components/MainLayout"
 import Form from "@/components/Form"
 import InputField from "@/components/Form/InputField"
 import SendButton from "@/components/Form/SendButton"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import type { InputFieldError } from "@/types"
 import Providers from "@/components/Form/Providers"
 
@@ -12,6 +12,13 @@ export default function Login () {
   const password = useRef<HTMLInputElement>(null)
   const [inputError, setInputError] = useState<InputFieldError | null>()
   const router = useRouter() 
+
+  useEffect(()=>{
+    if (router.query?.error) {
+      const {error} = router.query
+      setInputError({from: 'form', msg: error as string})
+    }
+  }, [router.query])
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault()

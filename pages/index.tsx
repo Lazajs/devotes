@@ -9,7 +9,6 @@ const {Out} = Icons
 
 export default function Home({ user }: {user: User}) {
   const router = useRouter()
-  console.log(user)
   
   const handleLogout = () => {
     fetch('/api/auth/logout').then(res => {
