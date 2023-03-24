@@ -1,7 +1,16 @@
 export interface User {
   name: string
   id: string,
-  email: string
+  email: string,
+  devotes: Devote[] | undefined
+}
+
+interface TDevote {
+  id: string,
+  userId: string,
+  title: string,
+  content: string,
+  createdAt: string,
 }
 
 export interface DatabaseUser extends User {
